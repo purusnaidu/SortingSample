@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+    <br>
+	<div ng-app="myApp" ng-controller="formCtrl">
+		<form>
+			Enter Comma Separated Numbers:<br> 
+			<input type="text" ng-model="unsorted.inputNumbers" placeholder="example: 1,2,3,4..."><br>
+			<button ng-click="submit()">Sort</button>
+			<button ng-click="reset()">Clear</button>
+		</form>
+	
+		<br>
+		<div ng-if="responseType==='success'">
+		<table border="1">
+		 <thead>
+		    <tr>
+		        <th>Input List</th>
+				<th>Sorted List</th>
+				<th>TimeTaken</th>
+				<th>Swap Count</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  		<tr ng-repeat="lstData in listData">
+                    <td>{{lstData.unsorted}}</td>
+		             <td>{{lstData.sorted}}</td>
+		             <td>{{lstData.timeTaken}}</td>
+		             <td>{{lstData.swapCount}}</td>
+                </tr>
+           </tbody>
+         </table>
+         </div>
+        <div ng-if="responseType==='error'">
+        <table border="1">
+		 <thead>
+		    <tr>
+		        <th>Input List</th>
+				<th>Errors</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  		<tr ng-repeat="lstData in listData">
+                    <td>{{lstData.unsorted}}</td>
+		             <td>{{lstData.error}}</td>
+                </tr>
+           </tbody>
+         </table>
+         </div>
+	</div>
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('formCtrl', function($scope,$http) {
+		
+		$scope.list=[];
+		
+	    $scope.unsorted = {inputNumbers:""};
+	    
+	    $scope.reset = function() {
+	    	$scope.unsorted = {inputNumbers:""};
+	    };
+	    
+	    $scope.responseType={};
+	    
+	    
+	    
+        $scope.submit = function() {
+    	
+    		console.log(JSON.stringify($scope.unsorted));
+    		console.log($scope.unsorted.inputNumbers);
+    		var url='http://localhost:8080/sortedNumbers';
+    	
+        	$http({
+    		    	url: url, 
+    	    		method: 'GET',
+    	    		params: {'unsortedNumbers':$scope.unsorted.inputNumbers}
+    	 	  }).then(function mySuccess(response) {
+    				console.log(JSON.stringify(response));
+            		$scope.responseType=response.data.responseType;
+            		$scope.listData=response.data.responseObject;
+        	  }, function myError(response) {
+        			console.log(JSON.stringify(response));
+        			$scope.errorResponse = response.data;
+        	});
+    };
+});
+</script>
+</body>
+</html>

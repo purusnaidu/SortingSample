@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<mapping>
+
+		<class-a>com.sorting.beans.NumbersSorting</class-a>
+		<class-b>com.sorting.beans.ResponseObject</class-b>
+
+		<field>
+			<a>inputNumbers</a>
+			<b>unsorted</b>
+		</field>
+
+		<field>
+			<a>sortedNumbers</a>
+			<b>sorted</b>
+		</field>
+
+		<field>
+			<a>timeTaken</a>
+			<b>timeTaken</b>
+		</field>
+
+		<field>
+			<a>swapCount</a>
+			<b>swapCount</b>
+		</field>
+	</mapping>
+
+</mappings>
