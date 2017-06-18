@@ -1,7 +1,5 @@
 package com.sorting.utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +31,6 @@ public class NumberSortingUtil {
 
 		swapCount=0;
 		String[] unsortedArray = unsortedNumbers.split(",");
-		// ArrayList<Integer> parsedNumbersArray=new ArrayList<Integer>();
 		int parsedNumbersArray[] = new int[unsortedArray.length];
 
 		int numberArrayIndex = 0;
@@ -73,38 +70,6 @@ public class NumberSortingUtil {
 		return sortedNumbers;
 	}
 
-	/**
-	 * This is a utility method to sort and return the number list.
-	 */
-	public String sortNumbers(String unsortedNumbers) throws Exception {
-
-		String[] unsortedArray = unsortedNumbers.split(",");
-		ArrayList<Integer> parsedNumbersArray = new ArrayList<Integer>();
-
-		for (String valueAtIndex : unsortedArray) {
-				if (!StringUtils.isBlank(valueAtIndex)) {
-					parsedNumbersArray
-							.add(Optional.ofNullable(valueAtIndex).map(Integer::valueOf).orElse(null));
-				}
-		}
-
-		String sortedNumbers = "";
-		Collections.sort(parsedNumbersArray);
-
-		if (!parsedNumbersArray.isEmpty()) {
-			Object[] sortedNumbersArray = parsedNumbersArray.toArray();
-
-			for (int j = 0; j < sortedNumbersArray.length; j++) {
-				if (j == 0) {
-					sortedNumbers = StringUtils.EMPTY+ sortedNumbersArray[j];
-				} else {
-					sortedNumbers = sortedNumbers + "," + sortedNumbersArray[j];
-				}
-			}
-		}
-		
-		return sortedNumbers;
-	}
 
 	/**
 	 * creating error response from common place
@@ -131,7 +96,6 @@ public class NumberSortingUtil {
 			numbersSorting.setInputNumbers(unsortedNumbers);
 
 			long startTime = System.nanoTime();
-			// sortedNumbers=sortNumbers(unsortedNumbers);
 			 sortedNumbers = manualSorting(unsortedNumbers);
 			 numbersSorting.setSwapCount(swapCount);
 			numbersSorting.setSortedNumbers(sortedNumbers);
